@@ -12,6 +12,8 @@ void OnTick()
   {
 if(MarketInfo(Symbol(), MODE_SPREAD) < 110)
   {
+  Comment("Under100 " + MarketInfo(Symbol(), MODE_SPREAD));
+  
    double movingAverage50 = iMA (_Symbol,_Period,50,0,MODE_SMA,PRICE_CLOSE,0);
    double movingAverage1 = iMA (_Symbol,_Period,1,0,MODE_SMA,PRICE_CLOSE,0);
    double previousMovingAverage1 = iMA (_Symbol,_Period,1,0,MODE_SMA,PRICE_CLOSE,1);
@@ -46,6 +48,10 @@ if(MarketInfo(Symbol(), MODE_SPREAD) < 110)
        }
      }
   }
+  else
+    {
+     Comment("Over110 " + MarketInfo(Symbol(), MODE_SPREAD));
+    }
    
   }
   
