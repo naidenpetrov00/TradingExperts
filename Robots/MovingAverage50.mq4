@@ -10,12 +10,15 @@ int barsCount = 0;
 
 void OnTick()
   {
+if(MarketInfo(Symbol(), MODE_SPREAD) < 110)
+  {
    double movingAverage50 = iMA (_Symbol,_Period,50,0,MODE_SMA,PRICE_CLOSE,0);
    double movingAverage1 = iMA (_Symbol,_Period,1,0,MODE_SMA,PRICE_CLOSE,0);
    double previousMovingAverage1 = iMA (_Symbol,_Period,1,0,MODE_SMA,PRICE_CLOSE,1);
    double askPrice = MarketInfo(Symbol(), MODE_ASK);
    double bidPrice = MarketInfo(Symbol(), MODE_BID);
    Comment(MarketInfo(Symbol(),MODE_SPREAD));
+   
    if(previousMovingAverage1 > movingAverage50 && movingAverage1 < movingAverage50 && OrdersTotal() == 0)
      {
          Sell(bidPrice);
@@ -29,7 +32,7 @@ void OnTick()
      }
    if(previousMovingAverage1 < movingAverage50 && movingAverage1 > movingAverage50 && OrdersTotal() == 0)
      {
-           Buy(askPrice);
+         Buy(askPrice);
      }
    if(OrdersTotal() > 0)
      {
@@ -42,19 +45,20 @@ void OnTick()
          SellPostion(askPrice);
        }
      }
+  }
    
   }
   
   void Buy(double askPrice)
   {
-    orderType = OrderSend(_Symbol,OP_BUY,0.10,Ask,0,Ask-3,0,NULL,0,0,Blue);
+    orderType = OrderSend(_Symbol,OP_BUY,0.20,Ask,0,Ask-3,0,NULL,0,0,Blue);
     buyPrice = askPrice;
     highestPrice = askPrice;
   }
   
   void Sell(double bidPrice)
   {
-    orderType = OrderSend(_Symbol,OP_SELL,0.10,Bid,0,Bid+3,0,NULL,0,0,Red);
+    orderType = OrderSend(_Symbol,OP_SELL,0.20,Bid,0,Bid+3,0,NULL,0,0,Red);
     sellPrice = bidPrice;
     lowestPrice = bidPrice;
   }
