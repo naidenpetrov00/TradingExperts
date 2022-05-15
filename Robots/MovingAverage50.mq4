@@ -23,14 +23,12 @@ if(MarketInfo(Symbol(), MODE_SPREAD) < 110)
    
    if(previousMovingAverage1 > movingAverage50 && movingAverage1 < movingAverage50 && OrdersTotal() == 0)
      {
+       if(Bars > barsCount)
+       {
          Sell(bidPrice);
-      
-//       if(Bars > barsCount)
-//       {
-//         
-//         previousPosition = "Sell";
-//         barsCount = Bars;
-//       }
+         previousPosition = "Sell";
+         barsCount = Bars;
+       }
      }
    if(previousMovingAverage1 < movingAverage50 && movingAverage1 > movingAverage50 && OrdersTotal() == 0)
      {
