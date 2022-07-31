@@ -64,7 +64,7 @@ void Sell(double bidPrice)
   
 void SellPostion(double askPrice)
 {
-   if(askPrice >= lowestPrice + 25)
+   if(askPrice >= lowestPrice + 15)
     {
       SellPositionCloser();
     }
@@ -77,7 +77,7 @@ void SellPostion(double askPrice)
   
 void BuyPosition(double bidPrice)
 {
-   if(bidPrice <= highestPrice - 25)
+   if(bidPrice <= highestPrice - 15)
     {
       BuyPositionCloser();
     }
