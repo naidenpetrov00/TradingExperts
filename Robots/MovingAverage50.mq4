@@ -7,10 +7,12 @@ double lowestPrice = 0;
 
 int count =0;
 int barsCount = 0;
+int currHour = 0;
 
 void OnTick()
 {
- if(MarketInfo(Symbol(), MODE_SPREAD) < 110)
+currHour = Hour();
+ if(currHour >= 16)
    {
       Comment("Under100 " + MarketInfo(Symbol(), MODE_SPREAD));
   
@@ -41,7 +43,7 @@ void OnTick()
        }
     }
    }
- else
+ else if(currHour < 0)
    {
       Comment("Over110 " + MarketInfo(Symbol(), MODE_SPREAD));
    }
@@ -64,7 +66,7 @@ void Sell(double bidPrice)
   
 void SellPostion(double askPrice)
 {
-   if(askPrice >= lowestPrice + 15)
+   if(askPrice >= lowestPrice + 20)
     {
       SellPositionCloser();
     }
@@ -77,7 +79,7 @@ void SellPostion(double askPrice)
   
 void BuyPosition(double bidPrice)
 {
-   if(bidPrice <= highestPrice - 15)
+   if(bidPrice <= highestPrice - 20)
     {
       BuyPositionCloser();
     }
