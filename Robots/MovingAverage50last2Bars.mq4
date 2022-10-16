@@ -76,6 +76,7 @@ void Buy(double askPrice)
    buyPrice = askPrice;
    highestPrice = askPrice;
 }
+
   
 void Sell(double bidPrice)
 {
