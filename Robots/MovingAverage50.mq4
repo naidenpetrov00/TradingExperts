@@ -11,8 +11,8 @@ int minutes = 0;
 
 void OnTick()
 {
-if(Hour() >= 16)
- //if(MarketInfo(Symbol(), MODE_SPREAD) < 110)
+   //if(Hour() >= 16)
+   if(MarketInfo(Symbol(), MODE_SPREAD) < 110)
    {
       Comment("Under100 " + MarketInfo(Symbol(), MODE_SPREAD));
   
