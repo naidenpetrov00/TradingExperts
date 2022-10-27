@@ -1,0 +1,17 @@
+first 20 (break even 5)
+first 50(tp at 30)
+first 80(trailing 50)
+
+26.10:
+19.5
+21.10
+47.7
+
+first 30 (break even 10)
+first 50(tp at 30)
+first 80(trailing 50)
+
+26.10:
+-1
+21.10:
+42.2
