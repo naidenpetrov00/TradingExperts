@@ -11,9 +11,9 @@ double highSellPrice;
 double ticket =0;
 double buyOpenPrice = 0;
 double sellOpenPrice = 0;
-int orderType = 2;
 double askPrice = 0;
 double bidPrice = 0;
+
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
@@ -28,25 +28,18 @@ void OnTick()
       ResetPriceCheckers();
       buyOpenPrice = askPrice;
       ticket = OrderSend(_Symbol,OP_BUY,0.10,Ask,0,Bid - 30,0,NULL,0,0,Blue);
-      orderType = 1;
      }
    if(OrdersTotal() == 0 && SellCrossChecker(lastPriceBid, bidPrice, movingAverage50) == true)
      {
       ResetPriceCheckers();
       sellOpenPrice = bidPrice;
       ticket = OrderSend(_Symbol,OP_SELL,0.10,Bid,0,Ask + 30,0,NULL,0,0,Blue);
-      orderType = 0;
      }
    if(OrdersTotal() > 0)
      {
-      if(OrderType() == OP_BUY)
-        {
-         BuyPosition(askPrice, buyOpenPrice);
-        }
-      if(OrderType() == OP_SELL)
-        {
-         SellPosition(bidPrice, sellOpenPrice);
-        }
+      OrderSelect(ticket,SELECT_BY_TICKET);
+      Print(OrderType()+69);
+      BuyPosition(bidPrice, buyOpenPrice);
      }
 
    lastPriceAsk = askPrice;
@@ -128,7 +121,7 @@ void SellPosition(double askPrice, double sellOpenPrice)
    if(first20 == false && sellOpenPrice - askPrice >= 20)
      {
       sellOpenPrice = OrderOpenPrice();
-      //Print(sellOpenPrice);
+      Print("sell"+sellOpenPrice);
       first20 = true;
       OrderModify(ticket,OrderOpenPrice(),sellOpenPrice - 5,OrderTakeProfit(),0,Yellow);
      }
