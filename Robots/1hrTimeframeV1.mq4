@@ -1,5 +1,7 @@
 //+------------------------------------------------------------------+
-//|                                                                  |
+//|             ProjectName: 1 hour timeframe 50 moving average cross|
+//|                                                        Version: 1|
+//|                     Status: Problem with getting the currentprice|
 //+------------------------------------------------------------------+
 double lastPriceAsk = MarketInfo(Symbol(), MODE_ASK);
 double lastPriceBid = MarketInfo(Symbol(), MODE_BID);
@@ -13,6 +15,7 @@ double buyOpenPrice = 0;
 double sellOpenPrice = 0;
 double askPrice = 0;
 double bidPrice = 0;
+double lastMovingAverage1 =  iMA(_Symbol,_Period,1,0,MODE_SMA,PRICE_CLOSE,0);;
 
 //+------------------------------------------------------------------+
 //|                                                                  |
@@ -20,16 +23,17 @@ double bidPrice = 0;
 void OnTick()
   {
    double movingAverage50 = iMA(_Symbol,_Period,50,0,MODE_SMA,PRICE_CLOSE,0);
+   double movingAverage1 = iMA(_Symbol,_Period,1,0,MODE_SMA,PRICE_CLOSE,0);
    askPrice = Ask;
    bidPrice = Bid;
 
-   if(OrdersTotal() == 0 && BuyCrossChecker(lastPriceAsk, askPrice, movingAverage50) == true)
+   if(OrdersTotal() == 0 && LongCrossChecker(movingAverage1, movingAverage50) == true)
      {
       ResetPriceCheckers();
       buyOpenPrice = askPrice;
       ticket = OrderSend(_Symbol,OP_BUY,0.10,Ask,0,Bid - 30,0,NULL,0,0,Blue);
      }
-   if(OrdersTotal() == 0 && SellCrossChecker(lastPriceBid, bidPrice, movingAverage50) == true)
+   if(OrdersTotal() == 0 && ShortCrossChecker(movingAverage1, movingAverage50) == true)
      {
       ResetPriceCheckers();
       sellOpenPrice = bidPrice;
@@ -37,22 +41,28 @@ void OnTick()
      }
    if(OrdersTotal() > 0)
      {
-      OrderSelect(ticket,SELECT_BY_TICKET);
-      Print(OrderType()+69);
-      BuyPosition(bidPrice, buyOpenPrice);
+      if(OrderType() == OP_BUY)
+      {
+         BuyPosition(bidPrice,buyOpenPrice);
+      }
+      if(OrderType() == OP_SELL)
+      {
+         SellPosition(askPrice,sellOpenPrice);
+      }
      }
 
    lastPriceAsk = askPrice;
    lastPriceBid = bidPrice;
+   lastMovingAverage1 = movingAverage1;
   }
 
 
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-bool BuyCrossChecker(double lastPriceAsk, double askPrice, double movingAverage50)
+bool LongCrossChecker(double movingAverage1, double movingAverage50)
   {
-   if(lastPriceAsk < movingAverage50 && askPrice >= movingAverage50)
+   if(lastMovingAverage1 < movingAverage50 && movingAverage1 >= movingAverage50)
      {
       return true;
      }
@@ -63,9 +73,9 @@ bool BuyCrossChecker(double lastPriceAsk, double askPrice, double movingAverage5
 //+------------------------------------------------------------------+
 //|                                                                  |
 //+------------------------------------------------------------------+
-bool SellCrossChecker(double lastPriceBid, double bidPrice, double movingAverage50)
+bool ShortCrossChecker(double movingAverage1, double movingAverage50)
   {
-   if(lastPriceBid > movingAverage50 && bidPrice <= movingAverage50)
+   if(lastMovingAverage1 > movingAverage50 && movingAverage1 <= movingAverage50)
      {
       return true;
      }
