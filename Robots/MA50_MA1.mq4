@@ -66,3 +66,39 @@ bool SellCrossChecker(double lastPriceBid, double priceBid, double movingAverage
 }
 
 
+void SellPositionCloser()
+  {
+   for(int i=OrdersTotal()-1; i>=0; i--)
+     {
+      OrderSelect(i,SELECT_BY_POS,MODE_TRADES);
+
+      string CurrencyPair = OrderSymbol();
+
+      if(_Symbol == CurrencyPair)
+
+         if(OrderType() == OP_SELL)
+           {
+            OrderClose(OrderTicket(),OrderLots(),Ask,0,Red);
+           }
+     }
+  }
+
+//+------------------------------------------------------------------+
+//|                                                                  |
+//+------------------------------------------------------------------+
+void BuyPositionCloser()
+  {
+   for(int i=OrdersTotal()-1; i>=0; i--)
+     {
+      OrderSelect(i,SELECT_BY_POS,MODE_TRADES);
+
+      string CurrencyPair = OrderSymbol();
+
+      if(_Symbol == CurrencyPair)
+
+         if(OrderType() == OP_BUY)
+           {
+            OrderClose(OrderTicket(),OrderLots(),Bid,0,Red);
+           }
+     }
+  }
