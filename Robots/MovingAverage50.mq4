@@ -11,9 +11,9 @@ int minutes = 0;
 
 void OnTick()
 {
-   if(Hour() >= 17 && Hour() < 23)
+   //if(Hour() >= 17 && Hour() < 23)
    //if(MarketInfo(Symbol(), MODE_SPREAD) < 110)
-   {
+   //{
       Comment("Under100 " + MarketInfo(Symbol(), MODE_SPREAD));
   
       double movingAverage50 = iMA (_Symbol,_Period,55,0,MODE_SMA,PRICE_CLOSE,0);
@@ -44,11 +44,11 @@ void OnTick()
          SellPostion(askPrice);
        }
     }
-   }
- else
-   {
-      Comment("Over110 " + MarketInfo(Symbol(), MODE_SPREAD));
-   }
+ //  //}
+ //else
+ //  {
+ //     Comment("Over110 " + MarketInfo(Symbol(), MODE_SPREAD));
+ //  }
    
 }
   
@@ -104,6 +104,10 @@ void SellPositionCloser()
       if(OrderType() == OP_SELL)
        {
          OrderClose(OrderTicket(),OrderLots(),Ask,0,Green);
+       }
+       if(OrderType() == OP_BUY)
+       {
+         OrderClose(OrderTicket(),OrderLots(),Bid,0,Green);
        }
     }
 }
