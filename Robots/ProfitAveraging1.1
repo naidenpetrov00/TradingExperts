@@ -33,55 +33,7 @@ int OnInit()
 //+------------------------------------------------------------------+
 void OnTick()
   {
-//---
-   if(OrdersTotal() == 0 && buy == false && sell == true)
-     {
-      SellOrderOpener();
-     }
-   if(OrdersTotal() == 0)
-     {
-      BuyOrderOpener();
-     }
-   if(buy == true && sell == false && oppositeOrderEntered == false)
-     {
-      if(buyOpenPrice - Ask >= TP)
-        {
-         OppositeSellOrderOpener();
-        }
-     }
-   if(sell == true && buy == false && oppositeOrderEntered == false)
-     {
-      if(Bid - sellOpenPrice >= TP)
-        {
-         OppositeSellOrderOpener();
-        }
-     }
-   if(oppositeOrderEntered == true)
-     {
-      if(buy == true && sell == false)
-        {
-         if(buyOpenPrice - Ask >= oppositeTP)
-           {
-            CloseOrders();
-           }
-         if(buyOpenPrice - Ask >= oppositeSP)
-           {
-            CloseOrders();
-           }
-        }
-      if(buy == false && sell == true)
-        {
-         if(Bid - sellOpenPrice >= oppositeTP)
-           {
-            CloseOrders();
-           }
-         if(Bid - sellOpenPrice >= oppositeSP)
-           {
-            CloseOrders();
-           }
-        }
-     }
-
+   
   }
 //+------------------------------------------------------------------+
 
@@ -104,24 +56,6 @@ double SellOrderOpener()
    sellOpenPrice = Bid;
    oppositeOrderEntered = false;
    return OrderSend(_Symbol,OP_SELL,0.01,Bid,0,0,Ask + TP,NULL,0,0,Blue);
-  }
-//+------------------------------------------------------------------+
-double OppositeBuyOrderOpener()
-  {
-   buy = true;
-   sell = false;
-   buyOpenPrice = Ask;
-   oppositeOrderEntered = true;
-   return OrderSend(_Symbol,OP_BUY,0.02,Ask,0,0,0,NULL,0,0,Blue);
-  }
-//+------------------------------------------------------------------+
-double OppositeSellOrderOpener()
-  {
-   buy = false;
-   sell = true;
-   sellOpenPrice = Bid;
-   oppositeOrderEntered = true;
-   return OrderSend(_Symbol,OP_SELL,0.02,Bid,0,0,0,NULL,0,0,Blue);
   }
 //+------------------------------------------------------------------+
 void CloseOrders()
