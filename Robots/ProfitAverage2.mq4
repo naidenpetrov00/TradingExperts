@@ -11,6 +11,7 @@ int TP = 5;
 int SL = 5;
 
 int lose = 0;
+int win = 0;
 
 double normalLot = 0.01;
 double firstOppositeLot = 0.03;
@@ -109,23 +110,28 @@ void OnTick()
       if(CloseChecker(Ask, buyOpenPrice) && buy == true)
         {
          CloseOrders();
+         win++;
         }
       else
          if(CloseChecker(sellOpenPrice, Bid)&& sell == true)
            {
             CloseOrders();
+            win++;
            }
 
       if(CloseChecker(buyOpenPrice, Ask)&& buy == true)
         {
          CloseOrders();
+         lose++;
         }
       else
          if(CloseChecker(Bid, sellOpenPrice)&& sell == true)
            {
             CloseOrders();
+            lose++;
            }
-
+   
+   Comment(lose," ",win);
      }
 
 
