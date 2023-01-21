@@ -10,6 +10,8 @@
 int TP = 5;
 int SL = 5;
 
+int lose = 0;
+
 double normalLot = 0.01;
 double firstOppositeLot = 0.03;
 double secondOppositeLot = 0.06;
@@ -91,7 +93,6 @@ void OnTick()
            {
             SecondOrder();
            }
-
      }
    if(secondOrder)
      {
