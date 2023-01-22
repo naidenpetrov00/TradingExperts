@@ -130,8 +130,8 @@ void OnTick()
             CloseOrders();
             lose++;
            }
-   
-   Comment(lose," ",win);
+
+      Comment(lose," ",win);
      }
 
 
