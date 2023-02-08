@@ -14,8 +14,8 @@ int lose = 0;
 int win = 0;
 
 double normalLot = 0.01;
-double firstOppositeLot = 0.03;
-double secondOppositeLot = 0.06;
+double firstOppositeLot = 0.02;
+double secondOppositeLot = 0.03;
 
 double buyOpenPrice = 0;
 double sellOpenPrice = 0;

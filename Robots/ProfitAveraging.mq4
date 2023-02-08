@@ -94,7 +94,7 @@ double BuyOrderOpener()
    sell = false;
    buyOpenPrice = Ask;
    oppositeOrderEntered = false;
-   return OrderSend(_Symbol,OP_BUY,0.01,Ask,0,0,Bid + TP,NULL,0,0,Blue);
+   return OrderSend(_Symbol,OP_BUY,1,Ask,0,0,Bid + TP,NULL,0,0,Blue);
   }
 //+------------------------------------------------------------------+
 double SellOrderOpener()
@@ -103,7 +103,7 @@ double SellOrderOpener()
    sell = true;
    sellOpenPrice = Bid;
    oppositeOrderEntered = false;
-   return OrderSend(_Symbol,OP_SELL,0.01,Bid,0,0,Ask + TP,NULL,0,0,Blue);
+   return OrderSend(_Symbol,OP_SELL,1,Bid,0,0,Ask + TP,NULL,0,0,Blue);
   }
 //+------------------------------------------------------------------+
 double OppositeBuyOrderOpener()
@@ -112,7 +112,7 @@ double OppositeBuyOrderOpener()
    sell = false;
    buyOpenPrice = Ask;
    oppositeOrderEntered = true;
-   return OrderSend(_Symbol,OP_BUY,0.02,Ask,0,0,0,NULL,0,0,Blue);
+   return OrderSend(_Symbol,OP_BUY,2,Ask,0,0,0,NULL,0,0,Blue);
   }
 //+------------------------------------------------------------------+
 double OppositeSellOrderOpener()
@@ -121,7 +121,7 @@ double OppositeSellOrderOpener()
    sell = true;
    sellOpenPrice = Bid;
    oppositeOrderEntered = true;
-   return OrderSend(_Symbol,OP_SELL,0.02,Bid,0,0,0,NULL,0,0,Blue);
+   return OrderSend(_Symbol,OP_SELL,2,Bid,0,0,0,NULL,0,0,Blue);
   }
 //+------------------------------------------------------------------+
 void CloseOrders()
