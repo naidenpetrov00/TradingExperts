@@ -54,14 +54,14 @@ void OnTick()
   
 void Buy(double askPrice)
 {
-   orderType = OrderSend(_Symbol,OP_BUY,0.10,Ask,0,Ask-2,0,NULL,0,0,Blue);
+   orderType = OrderSend(_Symbol,OP_BUY,0.01,Ask,0,Ask-2,0,NULL,0,0,Blue);
    buyPrice = askPrice;
    highestPrice = askPrice;
 }
   
 void Sell(double bidPrice)
 {
-   orderType = OrderSend(_Symbol,OP_SELL,0.10,Bid,0,Bid+2,0,NULL,0,0,Red);
+   orderType = OrderSend(_Symbol,OP_SELL,0.01,Bid,0,Bid+2,0,NULL,0,0,Red);
    sellPrice = bidPrice;
    lowestPrice = bidPrice;
 }
